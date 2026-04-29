@@ -31,6 +31,29 @@ Los comandos necesarios son los siguientes:
  - En la página de perfil se muestran los datos del usuario y sus posts.
 
 
+# NAVEGACIÓN Y GESTIÓN DE DATOS DE LA API
+# Navegación
+La aplicación está organizada en varias páginas utilizando el sistema de rutas de Next.js:
+  - /login: Es la página de login y registro.
+  - /: Es la página principal. 
+  - /post/[id]: Es la página de detalle de un post  
+  - /profile/[id]: Es la página de perfil del usuario  
+La navegación se realiza utilizando useRouter() y router.push(), lo que permite cambiar de página sin recargar.
+Por ejemplo:
+  - Después de iniciar sesión, el usuario es redirigido a la home.
+  - Al hacer click en un post, se accede a su detalle.
+
+Además, en la página principal se comprueba si el usuario tiene token guardado en localStorage.  
+Si no lo tiene, se redirige automáticamente al login.
+
+## Gestión de datos de la API
+La API utilizada no siempre devuelve los datos con la misma estructura.
+En algunos casos, los posts pueden venir en:
+  - res.data.data  
+  - res.data.posts  
+  - o directamente en res.data  
+
+
 # ESTRUCTURA DEL PROYECTO Y EXPLICACIÓN
 # api/api.ts
 En este archivo se configura Axios con la URL base de la API.
@@ -69,6 +92,7 @@ Es la página principal (Home).
  - Muestra la lista de posts usando PostCard.
  - Controla la redirección al login si no hay token.
 
+
 # app/login/page.tsx
 Es la página de login y registro.
  - Permite alternar entre login y registro.
@@ -105,3 +129,13 @@ Define:
 
 # app/styles.css
 En este archivo se han definido algunos estilos básicos adicionales de la aplicación.
+
+
+# PROBLEMAS ENCONTRADOS DURANTE EL DESARROLLO
+Durante la realización de la práctica me he encontrado con algunos problemas:
+  - Problemas con las rutas: Al principio me salía el error "Module not found" porque los imports no coincidían con las carpetas. Lo solucioné cambiando las rutas.
+  - Problemas con la API: A veces la API no funcionaba o tardaba en cargar, por lo que el login o los posts no funcionaban correctamente.
+  - Datos de la API: Los datos no siempre venían igual. Lo solucioné comprobando varias opciones para obtenerlos.
+  - Datos vacíos: Algunos posts no tenían autor o datos completos, así que añadí comprobaciones para que no fallase.
+  - Uso de localStorage: Tuve que usar "use client" en los componentes donde uso localStorage para que funcionase bien.
+  - Actualización de datos: Después de hacer like o retweet, en algunos casos recargo la página para ver los cambios.
