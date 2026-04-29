@@ -1,50 +1,40 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #f3f4f6;
+  background-color: #f5f7fb;
+  color: #111827;
 }
 
 .header {
+  height: 70px;
   background-color: white;
-  border-bottom: 1px solid #ddd;
-  padding: 15px;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0 25px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
-.header button {
-  margin-right: 10px;
+.header::before {
+  content: "NebrijaSocial";
+  font-size: 22px;
+  font-weight: bold;
+  margin-right: auto;
 }
 
 main {
-  width: 600px;
-  margin: 30px auto;
-  background-color: white;
-  padding: 20px;
-  border: 1px solid #ddd;
+  width: 580px;
+  margin: 40px auto;
 }
 
-input {
-  display: block;
-  width: 95%;
-  padding: 8px;
-  margin-bottom: 10px;
+h1 {
+  font-size: 32px;
+  margin-bottom: 25px;
 }
 
-button {
-  padding: 7px 12px;
-  margin: 5px;
-  cursor: pointer;
-}
-
-.post {
-  border: 1px solid #ccc;
-  padding: 12px;
-  margin-bottom: 12px;
-  background-color: white;
-  cursor: pointer;
-}
-
-.caja {
-  border: 1px solid #ddd;
-  padding: 15px;
-  margin-bottom: 20px;
+h2 {
+  font-size: 22px;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  color: #374151;
 }

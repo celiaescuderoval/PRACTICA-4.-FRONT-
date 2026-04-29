@@ -1,32 +1,67 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-}
-
-div {
-  padding: 10px;
+.caja {
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  padding: 20px;
+  margin-bottom: 25px;
+  border-radius: 18px;
 }
 
 input {
   display: block;
-  margin-bottom: 10px;
-  padding: 8px;
-  width: 250px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  margin-bottom: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 14px;
 }
 
 button {
-  margin-right: 10px;
-  padding: 6px 10px;
+  padding: 10px 18px;
+  margin: 5px;
+  border: none;
+  border-radius: 10px;
+  background-color: #dbe4ff; 
+  color: #1d4ed8; 
+  font-weight: 600;
   cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08); 
 }
 
 .post {
-  border: 1px solid gray;
-  margin-bottom: 10px;
-  padding: 10px;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  padding: 16px;
+  margin-bottom: 16px;
+  border-radius: 16px;
+  cursor: pointer;
 }
 
-h1, h2 {
-  margin-bottom: 10px;
+.post p {
+  font-size: 15px;
+  margin: 6px 0;
+}
+
+.login-container {
+  width: 350px;
+  margin: 70px auto;
+  background-color: white;
+  padding: 25px;
+  border-radius: 18px;
+}
+
+.login-container h1 {
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 25px;
+}
+
+.login-container input {
+  width: 100%;
+}
+
+.login-container button {
+  width: 100%;
+  margin-top: 8px;
 }

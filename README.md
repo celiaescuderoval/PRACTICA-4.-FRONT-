@@ -119,12 +119,6 @@ Define la estructura de un post.
 
 # app/globals.css
 Es el archivo de estilos globales.
-Define:
- - Estilos del body
- - Cabecera
- - Posts
- - Inputs y botones
- - Diseño general de la aplicación
 
 
 # app/styles.css
