@@ -1,66 +1,81 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import api from "@/api/api";
+import PostCard from "@/components/PostCard";
+import Paginador from "@/components/Paginador";
 
 export default function Home() {
+  const [posts, setPosts] = useState<any[]>([]);
+  const [pagina, setPagina] = useState(1);
+  const [contenido, setContenido] = useState("");
+  const router = useRouter();
+
+  const cargarPosts = () => {
+    api.get("/api/home?page=" + pagina)
+      .then((res) => {
+        const datos =
+          res.data.data ||
+          res.data.posts ||
+          res.data;
+
+        setPosts(datos);
+      })
+      .catch((err) => {
+        console.log(err.response?.data);
+      });
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      router.push("/login");
+      return;
+    }
+
+    cargarPosts();
+  }, [pagina]);
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <main>
+      <h1>Home</h1>
+
+      <div className="caja">
+        <input
+          placeholder="¿Qué está pasando?"
+          value={contenido}
+          onChange={(e) => setContenido(e.target.value)}
         />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+
+        <button
+          onClick={() => {
+            if (contenido.trim() === "") {
+              alert("Escribe algo");
+              return;
+            }
+
+            api.post("/api/posts", {
+              contenido: contenido,
+            })
+            .then(() => {
+              setContenido("");
+              cargarPosts();
+            });
+          }}
+        >
+          Publicar
+        </button>
+      </div>
+
+      <h2>Últimos posts</h2>
+
+      {posts.map((post, index) => (
+        <PostCard key={post._id || index} post={post} />
+      ))}
+
+      <Paginador pagina={pagina} setPagina={setPagina} />
+    </main>
   );
 }

@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PRÁCTICA 4 - FRONT
+En esta práctica he desarrollado un clon funcional de una red social tipo Twitter utilizando Next.js y TypeScript.
+La aplicación permite a los usuarios registrarse, iniciar sesión y realizar acciones típicas de una red social como publicar posts, dar like, hacer retweet y comentar.
+Además, incluye diferentes páginas como la home con los posts recientes, el detalle de cada post y la página de perfil del usuario.
 
-## Getting Started
 
-First, run the development server:
+# COMANDOS
+Los comandos necesarios son los siguientes: 
+  - Comando para instalar todas las dependencias necesarias: npm install
+  - Comando para poder arrancar el proyecto: npm run dev
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# CREACIÓN DEL PROYECTO
+1. Ir a la carpeta donde quiero crear el proyecto (por ejemplo, Escritorio): cd Escritorio
+2. Crear el proyecto con Next.js: npx create-next-app@latest practica4
+3. Elegir las diferentes opciones cuando lo pida
+4. Instalar las dependencias y ejecutar el proyecto: Puesto en el apartado anterior de COMANDOS
+5. Instalar Axios para poder hacer peticiones a la API: npm install axios
+6. Ejecutar el proyecto con npm run dev. Una vez ejecutado, se abrirá en http://localhost:3000 
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# FUNCIONAMIENTO 
+ - El usuario puede registrarse o iniciar sesión desde la página de login.
+ - Una vez autenticado, se guarda el token JWT en localStorage.
+ - Si no hay token, el usuario es redirigido automáticamente al login.
+ - En la página principal se muestran los últimos posts con paginación.
+ - El usuario puede publicar nuevos posts desde la home.
+ - Cada post permite dar like o hacer retweet.
+ - Al pulsar sobre un post, se accede a su página de detalle.
+ - En el detalle del post se muestran los comentarios y se pueden añadir nuevos.
+ - En la página de perfil se muestran los datos del usuario y sus posts.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+# ESTRUCTURA DEL PROYECTO Y EXPLICACIÓN
+# api/api.ts
+En este archivo se configura Axios con la URL base de la API.
+También se añaden automáticamente los headers necesarios:
+  - x-nombre obligatorio
+  - Authorization con el token JWT
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# components/Header.tsx
+Este componente representa la cabecera común de la aplicación.
+Incluye botones para:
+ - Ir a la home: redirige a la página principal, donde se muestran los posts.
+ - Ir al perfil: redirige a la página del perfil del usuario autenticado.
+ - Cerrar sesión: elimina el token guardado y redirige al usuario a la página de login. 
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# components/PostCard.tsx
+Este componente se encarga de mostrar un post individual dentro de la aplicación.
+Muestra:
+ - Contenido del post
+ - Autor
+ - Número de likes y retweets
+Incluye botones para dar like y hacer retweet
+También permite navegar al detalle del post al hacer click.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+# components/Paginador.tsx
+Este componente permite cambiar de página en la lista de posts.
+Incluye botones de anterior y siguiente
+
+
+# app/page.tsx
+Es la página principal (Home).
+ - Carga los posts desde la API con paginación.
+ - Permite publicar nuevos posts.
+ - Muestra la lista de posts usando PostCard.
+ - Controla la redirección al login si no hay token.
+
+# app/login/page.tsx
+Es la página de login y registro.
+ - Permite alternar entre login y registro.
+ - En login se envían email y password.
+ - En registro se envían username, email y password.
+ - Guarda el token en y redirige a la home.
+
+
+# app/post/[id]/page.tsx
+Es la página de detalle de un post.
+Se encarga de mostrat el contenido, el autor, la fecha y los likes y retweets
+Además permite dar like, hacer retweet, ver comentarios y añadir comentarios
+
+
+# app/profile/[id]/page.tsx
+Es la página de perfil de usuario.
+Muestra el usuario, la biografía, el número de seguidores y seguidos. 
+También lista los posts que ha realizado el usuario.
+
+
+# types/Post.ts
+Define la estructura de un post. 
+
+
+# app/globals.css
+Es el archivo de estilos globales.
+Define:
+ - Estilos del body
+ - Cabecera
+ - Posts
+ - Inputs y botones
+ - Diseño general de la aplicación
+
+
+# app/styles.css
+En este archivo se han definido algunos estilos básicos adicionales de la aplicación.
